@@ -157,4 +157,4 @@ let data: number & string;
 let data: number[] & string[];
 ```
 
-ইত্যাদি ইত্যাদি। 
+ইত্যাদি ইত্যাদি। এই টাইপ যেহেতু exist করে না তাই একে আদর করে impossible type বলেও দাকা হয়। 
