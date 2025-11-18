@@ -1,4 +1,3 @@
-// Problem 1
 const formatValue = (
   value: string | number | boolean
 ): string | number | boolean => {
@@ -11,7 +10,7 @@ const formatValue = (
   return !value;
 };
 
-// Problem 2
+
 const getLength = (value: string | unknown[]): number => {
   if (typeof value === "string") {
     return value.length;
@@ -19,7 +18,7 @@ const getLength = (value: string | unknown[]): number => {
   return value.length;
 };
 
-// Problem 3
+
 class Person {
   name: string;
   age: number;
@@ -32,16 +31,21 @@ class Person {
     return `Name: ${this.name}, Age: ${this.age}`;
   }
 }
-// Problem 4
+
+
 interface IBookType {
   title: string;
   rating: number;
 }
 const filterByRating = (books: IBookType[]): IBookType[] => {
-  return books.filter((book) => book.rating >= 4);
+  return books.filter((book) => {
+    if (book.rating < 0 || book.rating > 5) {
+      throw new Error("Rating must be between 0 and 5");
+    }
+    return book.rating >= 4;
+  });
 };
 
-// Problem 5
 type User = {
   id: number;
   name: string;
@@ -51,7 +55,7 @@ type User = {
 const filterActiveUsers = (users: User[]): User[] => {
   return users.filter((item) => item.isActive);
 };
-// Problem 6
+
 interface Book {
   title: string;
   author: string;
@@ -63,11 +67,11 @@ const printBookDetails = (book: Book): string =>
     book.publishedYear
   }, Available: ${book.isAvailable ? "Yes" : "No"}`;
 
-// Problem 7
+
 const getUniqueValues = (
   array1: (string | number)[],
   array2: (string | number)[]
-) => {
+): (string | number)[] => {
   const mergedArray = [...array1, ...array2];
   const uniqueValues: (string | number)[] = [];
   mergedArray.forEach((item) => {
@@ -75,11 +79,10 @@ const getUniqueValues = (
       uniqueValues.push(item);
     }
   });
-
   return uniqueValues;
 };
 
-// Problem 8
+
 interface Product {
   name: string;
   price: number;
@@ -92,12 +95,13 @@ const calculateTotalPrice = (products: Product[]): number => {
   }
   return products.reduce((acc, product) => {
     let currentProductPrice = product.price * product.quantity;
-
     if (typeof product.discount === "number") {
+      if (product.discount < 0 || product.discount > 100) {
+        throw Error("Discount must be between 0 and 100");
+      }
       currentProductPrice =
         currentProductPrice - (currentProductPrice * product.discount) / 100;
     }
-
     acc += currentProductPrice;
     return acc;
   }, 0);
